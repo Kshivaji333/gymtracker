@@ -30,6 +30,7 @@ export default function FoodsPage() {
 
   useEffect(() => {
     if (!userId) return;
+    console.log('[FoodsPage] Fetching data for userId:', userId);
     let cancelled = false;
     async function load() {
       setLoading(true);

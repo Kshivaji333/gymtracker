@@ -5,6 +5,7 @@ import { createClient } from '../../lib/supabase/client';
 import type { Food, Entry, Settings, Slot } from '../../lib/types';
 import { todayLocal, addDays, displayDate, isToday, isFuture } from '../../lib/date';
 import { SLOT_ORDER, SLOT_LABELS } from '../../lib/constants';
+import Link from 'next/link';
 
 // ────────────────────────────────────────────
 //  Today Page — the home screen
@@ -56,6 +57,7 @@ export default function TodayPage() {
   // Load data when date or userId changes
   useEffect(() => {
     if (!userId) return;
+    console.log('[TodayPage] Fetching data for userId:', userId);
     let cancelled = false;
 
     async function load() {
@@ -440,8 +442,12 @@ export default function TodayPage() {
 
       {/* ── Macro Meters ── */}
       <div className="grid grid-cols-2 gap-3">
-        <MacroMeter label="Calories" remaining={kcalLeft} logged={totalKcal} target={kcalTarget} done={kcalDone} unit="kcal" color="primary" />
-        <MacroMeter label="Protein" remaining={proteinLeft} logged={totalProtein} target={proteinTarget} done={proteinDone} unit="g" color="emerald" />
+        <Link href="/settings" className="block tap-target hover:scale-[0.98] transition-transform">
+          <MacroMeter label="Calories" remaining={kcalLeft} logged={totalKcal} target={kcalTarget} done={kcalDone} unit="kcal" color="primary" />
+        </Link>
+        <Link href="/settings" className="block tap-target hover:scale-[0.98] transition-transform">
+          <MacroMeter label="Protein" remaining={proteinLeft} logged={totalProtein} target={proteinTarget} done={proteinDone} unit="g" color="emerald" />
+        </Link>
       </div>
 
       {/* ── Food Library ── */}
